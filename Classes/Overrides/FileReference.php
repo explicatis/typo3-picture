@@ -139,7 +139,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
         $properties = $this->getProperties();
         if (isset($properties['media_width']) && isset($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'])) {
             foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
-                if ($config['key'] === $properties['media_width']) {
+                if ($key === $properties['media_width']) {
                     return $config['mediaquery'];
                 }
             }
@@ -163,7 +163,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
             $properties = $this->getProperties();
             if (isset($properties['media_width']) && isset($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'])) {
                 foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
-                    if ($config['key'] === $properties['media_width']) {
+                    if ($key === $properties['media_width']) {
                         return $config['maxW'];
                     }
                 }
@@ -181,7 +181,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
         if ($this->isVariant()) {
             if ($this->mediaKey !== null) {
                 foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
-                    if ($config['key'] === $this->mediaKey) {
+                    if ($key === $this->mediaKey) {
                         return $config['maxH'];
                     }
                 }
@@ -189,7 +189,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
             $properties = $this->getProperties();
             if (isset($properties['media_width']) && isset($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'])) {
                 foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
-                    if ($config['key'] === $properties['media_width']) {
+                    if ($key === $properties['media_width']) {
                         $height = $config['maxH'];
                     }
                 }
