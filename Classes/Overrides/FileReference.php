@@ -88,7 +88,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
                     $variant->markAsVariation($key);
                     $this->variants[$key] = $variant;
                 }
-            $this->variants[$key]->mergedProperties['mediaQuery'] = $config['mediaQuery'] ?? '';
+                $this->variants[$key]->mergedProperties['mediaQuery'] = $config['mediaQuery'] ?? '';
             }
         }
 
@@ -130,7 +130,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
             return '';
         }
         if ($this->mediaKey !== null) {
-            foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
+            foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
                 if ($config['key'] === $this->mediaKey) {
                     return $config['mediaquery'];
                 }
@@ -139,7 +139,8 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
         $properties = $this->getProperties();
         if (isset($properties['media_width']) && isset($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'])) {
             foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
-                if ($key === $properties['media_width']) {
+                $keyWithoutTrailingDot = preg_replace('/\.$/', '', $key);
+                if ($keyWithoutTrailingDot === $properties['media_width']) {
                     return $config['mediaquery'];
                 }
             }
@@ -154,7 +155,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
     {
         if ($this->isVariant()) {
             if ($this->mediaKey !== null) {
-                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
+                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
                     if ($config['key'] === $this->mediaKey) {
                         return $config['maxW'];
                     }
@@ -162,7 +163,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
             }
             $properties = $this->getProperties();
             if (isset($properties['media_width']) && isset($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'])) {
-                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
+                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
                     if ($key === $properties['media_width']) {
                         return $config['maxW'];
                     }
@@ -180,7 +181,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
         $height = '';
         if ($this->isVariant()) {
             if ($this->mediaKey !== null) {
-                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
+                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
                     if ($key === $this->mediaKey) {
                         return $config['maxH'];
                     }
@@ -188,7 +189,7 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
             }
             $properties = $this->getProperties();
             if (isset($properties['media_width']) && isset($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'])) {
-                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key=>$config) {
+                foreach ($GLOBALS['TSFE']->config['config']['tx_responsivepicture.']['sizes.'] as $key => $config) {
                     if ($key === $properties['media_width']) {
                         $height = $config['maxH'];
                     }
@@ -199,8 +200,8 @@ class FileReference extends \TYPO3\CMS\Core\Resource\FileReference
     }
 
     /**
-     * @throws Exception
      * @return array<string, mixed>
+     * @throws Exception
      */
     private function loadPossibleVariants(string $table, string $field, int $uid): array
     {
